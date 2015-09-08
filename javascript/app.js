@@ -1,1 +1,1 @@
-angular.module('Gistter',['ngRoute']);
+angular.module('Gistter',['ngRoute','ngSanitize','Gistter.services']);
