@@ -1,6 +1,6 @@
 angular.module('Gistter')
 
-.config([$routeProvider, function($routeProvider) {
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider
 
     .when('/', {
