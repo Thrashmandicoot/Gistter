@@ -4,7 +4,7 @@ angular.module('Gistter')
   $routeProvider
 
     .when('/', {
-      controller: 'IndexController',
+      controller: 'TwitterController',
       templateUrl: 'templates/index/index.html'
     });
 
