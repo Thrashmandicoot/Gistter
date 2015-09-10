@@ -5,7 +5,7 @@ angular.module('Gistter.services', []).factory('twitterService', function($q) {
     return {
         initialize: function() {
             //initialize OAuth.io with public key of the application
-            OAuth.initialize('aDO9UK0zQdzWPksJlon95866w', {
+            OAuth.initialize('aPN6TnBWF7isEd2atAUftS3UbOg', {
                 cache: true
             });
             //try to create an authorization result when the page loads,
@@ -52,5 +52,5 @@ angular.module('Gistter.services', []).factory('twitterService', function($q) {
             //return the promise of the deferred object
             return deferred.promise;
         }
-    }
+    };
 });
