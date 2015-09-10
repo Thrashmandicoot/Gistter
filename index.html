@@ -6,17 +6,24 @@
 </head>
 
 <body>
-  <div ng-view></div>
-
-
+  <!-- Bootstrap | JQuery | OAuth.io-->
+  <link rel="stylesheet" src="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" src="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <script src='bower_components/jquery/dist/jquery.min.js'></script>
+  <script src='bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
+  <script src='bower_components/oauth-js/dist/oauth.min.js'></script>
   <!-- Angular Setup -->
-  <script src='/bower_components/angular/angular.min.js'></script>
-  <script src='/bower_components/angular-route/angular-route.min.js'></script>
+  <script src='bower_components/angular/angular.min.js'></script>
+  <script src='bower_components/angular-route/angular-route.min.js'></script>
+  <script src='bower_components/angular-sanitize/angular-sanitize.min.js'></script>
   <!-- Angular App & Router -->
-  <script src='/javascript/app.js'></script>
-  <script src='/javascript/router.js'></script>
-  <!-- Angular Controllers -->
-  <script src='/javascript/controller/index.js'></script>
+  <script src='javascript/app.js'></script>
+  <script src='javascript/router.js'></script>
+  <!-- Angular Controllers & Services -->
+  <script src='javascript/controllers/index.js'></script>
+  <script src='javascript/services.js'></script>
+  <!-- Render Templates -->
+  <div ng-view></div>
 </body>
 
 </html>

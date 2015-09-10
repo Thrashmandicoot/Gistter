@@ -1,10 +1,10 @@
 angular.module('Gistter')
 
-.config([$routeProvider, function($routeProvider) {
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider
 
     .when('/', {
-      controller: 'IndexController',
+      controller: 'TwitterController',
       templateUrl: 'templates/index/index.html'
     });
 
