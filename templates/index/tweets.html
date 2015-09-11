@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Gistter | Git the Gist on your Network</h1>
+  <div class="row">
+    <div class="col-xs-6">
+      <button class="btn btn-primary" id="connectButton" ng-click="connectButton()" type="button">Connect Twitter</button>
+      <button class="btn btn-info" id="getTimelineButton" ng-click="refreshTimeline()" style="display:none;" type="button">Get My Timeline</button>
+      <a class="btn btn-info" href="#/repos" type="button">Check for Repos</a>
+      <button class="btn btn-link" id="signOut" ng-click="signOut()" style="display:none;" type="button">Sign Out</button>
+    </div>
+    <div class="col-xs-6">
+      <input class="form-control" id="searchBox" ng-model="searchTerm" ng-show="connectedTwitter" placeholder="Enter search term here" type="text"/>
+    </div>
+  </div>
+  </br>
+  <div class="row">
+    <div class="col-xs-12" id="results">
+      <div class="row" ng-repeat="tweet in tweets | filter:searchTerm">
+        <div ng-show="tweet.entities.urls[0]">
+          <div class="col-xs-2 col-sm-1">
+            <img class="img-circle" ng-src="{{tweet.user.profile_image_url}}">
+          </div>
+          <div class="col-xs-10 col-sm-11">
+            <small>{{tweet.user.name}}</small>
+            <br>
+            <span ng-bind-html="tweet.text"></span>
+            <br>
+            <span ng-bind-html="tweet.entities.urls[0].expanded_url"></span>
+          </div>
+        </div>
+
+      </div>
+
+      <div ng-show="rateLimitError">
+        Rate limit reached. You are making too many requests.
+      </div>
+      <div>
+        <br/>
+        <input class="btn btn-info" id="load-more" ng-click="refreshTimeline(tweets[tweets.length-1].id)" ng-show="connectedTwitter" type="button" value="Load More"/>
+      </div>
+    </div>
+  </div>
+</div>
