@@ -2,13 +2,24 @@ angular.module('Gistter')
 
 .controller('TwitterController', function($scope, $q, twitterService) {
     $scope.tweets = []; //array of tweets
+    $scope.gists = []; //array of gists
 
     twitterService.initialize();
 
-    //using the OAuth authorization result get the latest 20 tweets from twitter for the user
+    //using the OAuth authorization result get the latest 20+ tweets from twitter for the user
     $scope.refreshTimeline = function(maxId) {
         twitterService.getLatestTweets(maxId).then(function(data) {
             $scope.tweets = $scope.tweets.concat(data);
+            angular.forEach($scope.tweets, function(key,value){
+              if (key.entities.urls[0]){
+                if (key.entities.urls[0].expanded_url.indexOf("gist") > -1){
+                  $scope.gists.push(key.entities.urls[0].expanded_url);
+                }
+              }
+              else {
+                $scope.gists.push(0);
+              }
+            });
         }, function() {
             $scope.rateLimitError = true;
         });
