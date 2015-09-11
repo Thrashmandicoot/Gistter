@@ -20,6 +20,7 @@ angular.module('Gistter')
           }
         }
       });
+      $scope.tweets = has_gist;
     });
   };
   // Query tweet that contains gist for git user's repos
