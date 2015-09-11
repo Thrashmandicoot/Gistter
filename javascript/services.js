@@ -26,7 +26,7 @@ angular.module('Gistter.services', []).factory('twitterService', function($q) {
                     deferred.resolve();
                 } else {
                     //do something if there's an error
-
+                    alert("We weren't able to log you in.");
                 }
             });
             return deferred.promise;
@@ -39,8 +39,9 @@ angular.module('Gistter.services', []).factory('twitterService', function($q) {
             //create a deferred object using Angular's $q service
             var deferred = $q.defer();
             var url = '/1.1/statuses/home_timeline.json';
+            var count = 200; //defaults at 20, can go up to 200
             if (maxId) {
-                url += '?max_id=' + maxId;
+                url += '?max_id=' + maxId + '?count=' + count;
             }
             var promise = authorizationResult.get(url).done(function(data) {
                 // https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
