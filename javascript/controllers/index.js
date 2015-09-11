@@ -16,7 +16,12 @@ angular.module('Gistter')
                   $scope.gists.push(key.entities.urls[0].expanded_url);
                 }
               }
-            });
+            }).then(
+              angular.forEach($scope.gists, function(key, val){
+                  console.log('hello'); 
+              })
+            );
+
         }, function() {
             $scope.rateLimitError = true;
         });
