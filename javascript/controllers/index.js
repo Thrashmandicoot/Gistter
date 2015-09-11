@@ -16,9 +16,6 @@ angular.module('Gistter')
                   $scope.gists.push(key.entities.urls[0].expanded_url);
                 }
               }
-              else {
-                $scope.gists.push(0);
-              }
             });
         }, function() {
             $scope.rateLimitError = true;
