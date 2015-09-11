@@ -12,15 +12,16 @@
         </div>
         <div class="row">
             <div class="col-xs-12" id="results">
-                <div class="row" ng-repeat="t in tweets | filter:searchTerm">
-
+                <div class="row" ng-repeat="tweet in tweets | filter:searchTerm">
+                  <div ng-show="tweet.entities.urls[0]">
                     <div class="col-xs-2 col-sm-1">
-                        <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+                        <img ng-src="{{tweet.user.profile_image_url}}" class="img-circle">
                     </div>
                     <div class="col-xs-10 col-sm-11">
-                        <small>{{t.user.name}}</small>
-                        <br> <span ng-bind-html="t.text"></span>
+                        <small>{{tweet.user.name}}</small>
+                        <br> <span ng-bind-html="tweet.entities.urls[0].expanded_url"></span>
                     </div>
+                  </div>
 
                 </div>
 
