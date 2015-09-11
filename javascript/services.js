@@ -26,7 +26,7 @@ angular.module('Gistter.services', []).factory('twitterService', function($q) {
                     deferred.resolve();
                 } else {
                     //do something if there's an error
-
+                    alert("We weren't able to log you in.");
                 }
             });
             return deferred.promise;
