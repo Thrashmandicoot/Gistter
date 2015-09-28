@@ -28,8 +28,9 @@ angular.module('Gistter')
     var username = gist.split('/')[3];
 
     if ($scope.repos.length === 0) {
-      getUserRepos();
+      getUserRepos(username);
     } else {
+      // make sure usernmae doesn't exist
       var getOut = 0;
       for(var i; i < $scope.repos.length ;i++){
         if (username === $scope.repos[i]) {
@@ -38,7 +39,7 @@ angular.module('Gistter')
         }
       }
       if (getOut === 0) {
-        getUserRepos();
+        getUserRepos(username);
       }
     }
   };
