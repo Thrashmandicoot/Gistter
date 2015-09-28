@@ -30,7 +30,7 @@ angular.module('Gistter')
     if ($scope.repos.length === 0) {
       getUserRepos(username);
     } else {
-      // make sure usernmae doesn't exist
+      // make sure username doesn't exist
       var getOut = 0;
       for(var i; i < $scope.repos.length ;i++){
         if (username === $scope.repos[i]) {
@@ -50,7 +50,9 @@ angular.module('Gistter')
   };
 
   var onRepos = function(response) {
-    $scope.repos.push(response.data);
+    for(var i = 0; i < response.data.length; i++){
+      $scope.repos.push(response.data[i]);
+    }
   };
 
   var onError = function(reason) {
