@@ -14,7 +14,7 @@ angular.module('Gistter')
       // go through each tweet and find gists
       angular.forEach($scope.tweets, function(tweet, i) {
         if (tweet.entities.urls[0]) {
-          if (tweet.entities.urls[0].expanded_url.indexOf("gist") > -1) {
+          if (tweet.entities.urls[0].expanded_url.indexOf("github") > -1) {
             $scope.findRepos(tweet.entities.urls[0].expanded_url);
             has_gist.push(tweet);
           }
@@ -27,6 +27,23 @@ angular.module('Gistter')
   $scope.findRepos = function(gist) {
     var username = gist.split('/')[3];
 
+    if ($scope.repos.length === 0) {
+      getUserRepos();
+    } else {
+      var getOut = 0;
+      for(var i; i < $scope.repos.length ;i++){
+        if (username === $scope.repos[i]) {
+          getOut++;
+          break;
+        }
+      }
+      if (getOut === 0) {
+        getUserRepos();
+      }
+    }
+  };
+
+  var getUserRepos = function(username){
     $http.get("https://api.github.com/users/" + username + "/repos")
       .then(onRepos, onError);
   };
@@ -50,7 +67,7 @@ angular.module('Gistter')
           $scope.connectedTwitter = true;
         });
       } else {
-
+        alert("We could not connect you successfully.");
       }
     });
   };
