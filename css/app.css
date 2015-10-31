@@ -1,0 +1,20 @@
+.debug { border: 1px solid red;}
+
+.b-1 { border: 1px solid; }
+
+.bcolor{ background-color: #2CA6CB;}
+
+.white-with-blue-shadow {
+   margin-left: 0.75em;
+   text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+   color: white;
+   font: 1.5em serif;
+}
+
+.bs-o {border-style:outset;}
+.bs-d {border-style: double;}
+.bs-s {border-style: solid;}
+
+.c-w {color:white;}
+
+.f-r{float:right;}
