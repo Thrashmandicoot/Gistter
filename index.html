@@ -3,6 +3,8 @@
 
 <head>
   <!-- Bootstrap | JQuery | OAuth.io -->
+  <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
   <script src='bower_components/jquery/dist/jquery.min.js'></script>
@@ -11,7 +13,17 @@
   <title>Gistter</title>
 </head>
 
-<body>
+<body class='bcolor'>
+  <!-- Render Templates -->
+  <div class="container">
+    <div class="row">
+    <div class="col-xs-6">
+      <h1 class='white-with-blue-shadow'>Gistter | connect and see who's working on what</h1>
+    </div>
+    <div class="col-xs-6">
+    </div>
+  </div>
+  <div ng-view></div>
   <!-- Angular Setup -->
   <script src='bower_components/angular/angular.min.js'></script>
   <script src='bower_components/angular-route/angular-route.min.js'></script>
@@ -22,8 +34,6 @@
   <!-- Angular Controllers & Services -->
   <script src='javascript/controllers/twitter-controller.js'></script>
   <script src='javascript/services.js'></script>
-  <!-- Render Templates -->
-  <div ng-view></div>
 </body>
 
 </html>
