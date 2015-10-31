@@ -25,9 +25,9 @@
     </table>
   </div>
 
-  <div ng-show="rateLimitError">
-    <p class='bg-warning'>
-      Rate limit reached. You are making too many requests.
-    </p>
+  <div ng-show='rateLimitError' class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    Rate limit reached. You are making too many requests.
   </div>
 </div>

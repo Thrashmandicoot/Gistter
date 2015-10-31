@@ -1,6 +1,6 @@
 angular.module('Gistter')
 
-.controller('TwitterController', function($scope, $q, twitterService, $http) {
+.controller('TwitterController', ['$scope', '$q', 'twitterService', '$http',function($scope, $q, twitterService, $http) {
   $scope.tweets = [];
   $scope.repos = [];
 
@@ -10,6 +10,8 @@ angular.module('Gistter')
   $scope.refreshTimeline = function(maxId) {
     var has_gist = [];
     twitterService.getLatestTweets(maxId).then(function(data) {
+      console.log('yaayyyy');
+      console.log(data);
       $scope.tweets = $scope.tweets.concat(data);
       // go through each tweet and find gists
       angular.forEach($scope.tweets, function(tweet, i) {
@@ -21,7 +23,9 @@ angular.module('Gistter')
         }
       });
       $scope.tweets = has_gist;
-    });
+    }).catch(function(fallback) {
+      $scope.rateLimitError = true;
+  });
   };
   // Query tweet that contains gist for git user's repos
   $scope.findRepos = function(gist) {
@@ -92,4 +96,4 @@ angular.module('Gistter')
     $('#getTimelineButton, #signOut').show();
     $scope.connectedTwitter = true;
   }
-});
+}]);
