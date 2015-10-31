@@ -25,8 +25,8 @@ angular.module('Gistter')
         }
       });
       $scope.tweets = has_gist;
-      if ($scope.tweets.length === 1){
-
+      if ($scope.tweets.length < 1){
+        return $scope.noTweetsError = true;
       }
     }).catch(function(fallback) {
       $scope.rateLimitError = true;
