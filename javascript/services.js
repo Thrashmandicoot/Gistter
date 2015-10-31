@@ -1,4 +1,4 @@
-angular.module('Gistter.services', []).factory('twitterService', function($q) {
+angular.module('Gistter.services', []).factory('twitterService',['$q', function($q) {
 
     var authorizationResult = false;
 
@@ -54,4 +54,4 @@ angular.module('Gistter.services', []).factory('twitterService', function($q) {
             return deferred.promise;
         }
     };
-});
+}]);
