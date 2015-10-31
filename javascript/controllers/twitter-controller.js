@@ -10,8 +10,10 @@ angular.module('Gistter')
   $scope.refreshTimeline = function(maxId) {
     var has_gist = [];
     twitterService.getLatestTweets(maxId).then(function(data) {
-      console.log('yaayyyy');
-      console.log(data);
+      console.log(data.length);
+      if (data.length === 0){
+        return $scope.noTweetsError = true;
+      }
       $scope.tweets = $scope.tweets.concat(data);
       // go through each tweet and find gists
       angular.forEach($scope.tweets, function(tweet, i) {
@@ -23,6 +25,9 @@ angular.module('Gistter')
         }
       });
       $scope.tweets = has_gist;
+      if ($scope.tweets.length === 1){
+
+      }
     }).catch(function(fallback) {
       $scope.rateLimitError = true;
   });

@@ -30,4 +30,9 @@
     <span class="sr-only">Error:</span>
     Rate limit reached. You are making too many requests.
   </div>
+  <div ng-show='noTweetsError' class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    We combed your tweets and couldn't find any github mentions or repos.
+  </div>
 </div>
