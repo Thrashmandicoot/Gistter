@@ -5,14 +5,12 @@
 .bcolor{ background-color: #2CA6CB;}
 
 .white-with-blue-shadow {
-   margin-left: 0.75em;
    text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
    color: white;
    font: 1.5em serif;
 }
 
 .white-with-blue-shadow-small {
-   margin-left: 0.75em;
    text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
    color: white;
    font: serif;
