@@ -1,20 +1,29 @@
 <div class="container">
-  <h1>Gistter | Git the Gist on your Network</h1>
   <div class="row">
     <div class="col-xs-6">
       <button class="btn btn-primary" id="connectButton" ng-click="connectButton()" type="button">Connect Twitter</button>
-      <a class="btn btn-info" href="#/tweets" type="button">See the Tweets</a>
-      <button class="btn btn-link" id="signOut" ng-click="signOut()" style="display:none;" type="button">Sign Out</button>
+      <button class="btn btn-info" id="getTimelineButton" ng-click="refreshTimeline()" style="display:none;" type="button">Get the Repos</button>
+      <button class="btn btn-danger" id="signOut" ng-click="signOut()" style="display:none;" type="button">Sign Out</button>
+    </div>
+    <div class="col-xs-6">
+      <a class="btn btn-info f-r" href="#/tweets" type="button">See the Tweets</a>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12" id="results">
-      <div class="row" ng-repeat="repo in repos">
-        <div class="col-xs-10 col-sm-11">
-          {{repo.name}}
-          <a ng-href='{{repo.html_url}}'>{{repo.html_url}}</a>
-        </div>
-      </div>
+      <table class="table">
+        <thead>
+          <th>Repo Owner</th>
+          <th>Repo Name</th>
+          <th>Repo Link</th>
+        </thead>
+        <tr ng-repeat="repo in repos">
+          <td class='c-w'>{{repo.owner.login}}</td>
+          <td class='c-w'>{{repo.name}}</td>
+          <td><a class='c-w' ng-href='{{repo.html_url}}'>{{repo.html_url}}</a></td>
+        </tr>
+      </table>
+    </div>
 
       <div ng-show="rateLimitError">
         Rate limit reached. You are making too many requests.
