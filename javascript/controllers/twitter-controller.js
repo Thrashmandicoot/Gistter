@@ -10,7 +10,6 @@ angular.module('Gistter')
   $scope.refreshTimeline = function(maxId) {
     var has_gist = [];
     twitterService.getLatestTweets(maxId).then(function(data) {
-      console.log(data.length);
       if (data.length === 0){
         return $scope.noTweetsError = true;
       }
