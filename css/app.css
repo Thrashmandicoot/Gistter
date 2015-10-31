@@ -11,10 +11,13 @@
    font: 1.5em serif;
 }
 
-.bs-o {border-style:outset;}
-.bs-d {border-style: double;}
-.bs-s {border-style: solid;}
+.white-with-blue-shadow-small {
+   margin-left: 0.75em;
+   text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+   color: white;
+   font: serif;
+}
 
-.c-w {color:white;}
+.c-w{color:white;}
 
 .f-r{float:right;}
