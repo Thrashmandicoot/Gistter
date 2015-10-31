@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-xs-12" id="results">
       <table class="table">
-        <thead>
+        <thead class='c-w'>
           <th>Repo Owner</th>
           <th>Repo Name</th>
           <th>Repo Link</th>
@@ -20,7 +20,7 @@
         <tr ng-repeat="repo in repos">
           <td class='c-w'>{{repo.owner.login}}</td>
           <td class='c-w'>{{repo.name}}</td>
-          <td><a class='c-w' ng-href='{{repo.html_url}}'>{{repo.html_url}}</a></td>
+          <td><a class='white-with-blue-shadow-small' ng-href='{{repo.html_url}}'>{{repo.html_url}}</a></td>
         </tr>
       </table>
     </div>
