@@ -3,11 +3,11 @@
 
   angular
     .module('Gistter.services')
-    .factory('twitterService', twitterService);
+    .factory('twitterHandlerService', twitterHandlerService);
 
-    twitterService.$inject = ['$q'];
+    twitterService.$inject = ['$log'];
 
-    function twitterService($q) {
+    function twitterService($log) {
       var authorizationResult = false;
 
       var services = {
@@ -59,6 +59,32 @@
           $log.error('XHR failed for getLatestTweets.', error.data);
         }
       }
+
+      function getUserRepos(){
+        var url = 'https://api.github.com/users/' + username + '/repos';
+        return $http.get(url)
+          .then(getUserReposComplete)
+          .catch(getUserReposFailed)
+
+        function getUserReposComplete(response){
+          var repos = [];
+          angular.each(response.data, pushRepo);
+
+          function pushRepo(data, idx){
+            repos.push(data[idx]);
+          }
+        }
+
+        function getUserReposFailed(error){
+          $log.error('XHR failed for getLatestTweets.', error.data);
+        }
+      }
+
+      var onRepos = function(response) {
+        for(var i = 0; i < response.data.length; i++){
+          vm.repos.push(response.data[i]);
+        }
+      };
 
       function clearCache(){
         OAuth.clearCache('twitter');
