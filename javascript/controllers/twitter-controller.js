@@ -1,80 +1,98 @@
-angular.module('Gistter')
+(function(){
+  'use strict';
 
-.controller('TwitterController', ['$scope', '$q', 'twitterService', '$http',function($scope, $q, twitterService, $http) {
-  $scope.tweets = [];
-  $scope.repos = [];
+  angular
+    .module('Gistter')
+    .controller('TwitterController', twitterController);
 
-  twitterService.initialize();
+    twitterController.$inject = ['$q', 'twitterHandlerService'];
 
-  // using the OAuth authorization result get the latest 20+ tweets from twitter for the user
-  $scope.refreshTimeline = function(maxId) {
-    var has_gist = [];
-    twitterService.getLatestTweets(maxId).then(function(data) {
-      if (data.length === 0){
-        return $scope.noTweetsError = true;
+    function twitterController($q, twitterHandlerService) {
+      var vm = this;
+      vm.tweets = [];
+      vm.repos = [];
+
+      vm.refreshTimeline = refreshTimeline;
+      vm.findRepos = findRepos;
+
+      activate();
+
+      function activate(){
+        twitterService.initialize();
       }
-      $scope.tweets = $scope.tweets.concat(data);
-      // go through each tweet and find gists
-      angular.forEach($scope.tweets, function(tweet, i) {
-        if (tweet.entities.urls[0]) {
-          if (tweet.entities.urls[0].expanded_url.indexOf("github") > -1) {
-            $scope.findRepos(tweet.entities.urls[0].expanded_url);
+
+      function getLatestTweets(){
+        return twitterService.getLatestTweets();
+      }
+
+      function refreshTimeline(){
+        var has_gist = [];
+        var data = getLatestTweets();
+
+        if (data.length === 0)
+          return vm.noTweetsError = true;
+
+        vm.tweets = vm.tweets.concat(data);
+            // go through each tweet and find gists
+        findGists();
+        vm.tweets = has_gist;
+        if (vm.tweets.length < 1)
+          return vm.noTweetsError = true
+
+        function findGists(){
+          angular.forEach(vm.tweets, scanForGists);
+
+          function scanTweets(tweet, i) {
+            if (tweet.entities.urls[0])
+              if (tweet.entities.urls[0].expanded_url.indexOf("github") > -1)
+                captureGists();
+          }
+
+          function captureGists(){
+            vm.findRepos(tweet.entities.urls[0].expanded_url);
             has_gist.push(tweet);
           }
         }
-      });
-      $scope.tweets = has_gist;
-      if ($scope.tweets.length < 1){
-        return $scope.noTweetsError = true;
-      }
-    }).catch(function(fallback) {
-      $scope.rateLimitError = true;
-  });
-  };
-  // Query tweet that contains gist for git user's repos
-  $scope.findRepos = function(gist) {
-    var username = gist.split('/')[3];
+      };
 
-    if ($scope.repos.length === 0) {
-      getUserRepos(username);
-    } else {
-      // make sure username doesn't exist
-      var getOut = 0;
-      for(var i; i < $scope.repos.length ;i++){
-        if (username === $scope.repos[i]) {
-          getOut++;
-          break;
+      function findRepos(gists){
+        var username = gist.split('/')[3];
+        var reposLength = vm.repos.length;
+
+        if(reposLength === 0)
+          getUserRepos(username);
+        else
+          tryAgain();
+
+        function tryAgain(){
+          var getOut = 0;
+          angular.foreach(vm.repos, checkForUserRepos);
+
+          if(getOut === 0)
+            getUserRepos(username);
+
+          function checkForUserRepos(){
+            if(username === vm.repos[i])
+              getOut += 1 && break
+          }
         }
+
       }
-      if (getOut === 0) {
-        getUserRepos(username);
+
+      function getUserRepos(){
+        return twitterService.getUserRepos;
       }
-    }
-  };
 
-  var getUserRepos = function(username){
-    $http.get("https://api.github.com/users/" + username + "/repos")
-      .then(onRepos, onError);
-  };
 
-  var onRepos = function(response) {
-    for(var i = 0; i < response.data.length; i++){
-      $scope.repos.push(response.data[i]);
-    }
-  };
-
-  var onError = function(reason) {
-    $scope.error = "Could not fetch the data";
-  };
 
   //when the user clicks the connect twitter button, the popup authorization window opens
-  $scope.connectButton = function() {
+  vm.connectButton = function() {
     twitterService.connectTwitter().then(function() {
       if (twitterService.isReady()) {
         //if the authorization is successful, hide the connect button and display the tweets
         $('#connectButton').fadeOut(function() {
           $('#getTimelineButton, #signOut').fadeIn();
-          $scope.connectedTwitter = true;
+          vm.connectedTwitter = true;
         });
       } else {
         alert("We could not connect you successfully.");
@@ -83,13 +101,13 @@ angular.module('Gistter')
   };
 
   //sign out clears the OAuth cache, the user will have to reauthenticate when returning
-  $scope.signOut = function() {
+  vm.signOut = function() {
     twitterService.clearCache();
-    $scope.tweets.length = 0;
+    vm.tweets.length = 0;
     $('#getTimelineButton, #signOut').fadeOut(function() {
       $('#connectButton').fadeIn();
-      $scope.$apply(function() {
-        $scope.connectedTwitter = false;
+      vm.$apply(function() {
+        vm.connectedTwitter = false;
       });
     });
   };
@@ -98,6 +116,6 @@ angular.module('Gistter')
   if (twitterService.isReady()) {
     $('#connectButton').hide();
     $('#getTimelineButton, #signOut').show();
-    $scope.connectedTwitter = true;
+    vm.connectedTwitter = true;
   }
 }]);
