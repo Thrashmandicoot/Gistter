@@ -15,7 +15,8 @@
         isReady : isReady,
         connectTwitter : connectTwitter,
         clearCache : clearCache,
-        getLatestTweets : getLatestTweets
+        getLatestTweets : getLatestTweets,
+        getUserRepos : getUserRepos
       }
       return services
 
