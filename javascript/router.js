@@ -1,19 +1,25 @@
-angular.module('Gistter')
+(function () {
+  'use strict';
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider
+  angular
+    .module('Gistter')
+    .config(GistterRoutes);
 
-    .when('/tweets', {
-      controller: 'TwitterController',
-      templateUrl: 'templates/index/tweets.html'
-    })
-    .when('/repos', {
-      controller: 'TwitterController',
-      templateUrl: 'templates/index/repos.html'
-    })
-    .otherwise('/tweets', {
-      controller: 'TwitterController',
-      templateUrl: 'templates/index/tweets.html'
-    });
+    GistterRoutes.$inject = ['$routeProvider'];
 
-}]);
+    function GistterRoutes($routeProvider) {
+      $routeProvider
+        .when('/tweets', {
+          controller: 'GistterController',
+          templateUrl: 'templates/index/tweets.html'
+        })
+        .when('/repos', {
+          controller: 'GistterController',
+          templateUrl: 'templates/index/repos.html'
+        })
+        .otherwise('/tweets', {
+          controller: 'GistterController',
+          templateUrl: 'templates/index/tweets.html'
+      });
+    }
+})();
