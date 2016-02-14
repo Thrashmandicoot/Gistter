@@ -70,6 +70,7 @@
         function getUserReposComplete(response){
           var repos = [];
           angular.each(response.data, pushRepo);
+          return repos;
 
           function pushRepo(data, idx){
             repos.push(data[idx]);
